@@ -1,7 +1,28 @@
+import { gql, useQuery } from "@apollo/client"
+
+const GET_LESSON_QUERY = gql`
+  query {
+    lessons {
+      id
+      title
+    }
+  }
+`
+interface LessonQuery {
+  id: string;
+  title: string;
+}
+
 
 function App() {
+  const { data } = useQuery<{lessons: LessonQuery[]}>(GET_LESSON_QUERY)
+
   return (
-    <h3 className="title">Hello Word</h3>
+    <ul>
+      {data?.lessons.map(lesson => (
+        <li key={lesson.id}>{lesson.title}</li>
+      ))}
+    </ul>
   )
 }
 
