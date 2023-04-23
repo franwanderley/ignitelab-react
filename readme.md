@@ -4,3 +4,4 @@ Curso Especialização em React || RockSeat
 * GraphQL
 * Tailwind
 * GraphCMS
+* VIME JS
