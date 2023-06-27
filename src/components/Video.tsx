@@ -1,14 +1,57 @@
 import { DefaultUi, Player, Youtube } from "@vime/react";
 import { CaretRight, DiscordLogo, FileArrowDown, Image, Lightning } from "phosphor-react";
 import '@vime/core/themes/default.css';
+import { gql, useQuery } from "@apollo/client";
+
+const GET_LESSON_BY_SLUG = gql`
+query GetLessonBySlug ($slug: String) {
+  lesson(where: {slug: $slug}) {
+    title
+    videoId
+    description
+    teacher {
+      bio
+      avatarURL
+      name
+    }
+  }
+}
+`;
+
+interface GetLessonBySlugResponse {
+lesson: {
+  title: string;
+  videoId: string;
+  description: string;
+  teacher: {
+    bio: string;
+    avatarURL: string;
+    name: string;
+  };
+}
+}
 
 export function Video (props : { lessonSlug: string }) {
+  const { data } = useQuery<GetLessonBySlugResponse>(GET_LESSON_BY_SLUG, {
+    variables: {
+      slug: props.lessonSlug,
+    }
+  });
+
+  if(!data) {
+    return (
+      <div className="flex-1 flex items-center justify-center">
+        <p>Carregando...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex-1">
       <div className="bg-black flex justify-center">
         <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
           <Player>
-            <Youtube videoId="MV4nuKUkQNs"  />
+            <Youtube videoId={data.lesson.videoId}  />
             <DefaultUi />
           </Player>
         </div>
@@ -18,12 +61,10 @@ export function Video (props : { lessonSlug: string }) {
         <div className="flex items-start gap-16">
           <div className="flex-1">
             <h1 className="text-2xl font-bold leading-relaxed">
-              Aula 01 - Abertura do Evento Ignite Lab
+              {data.lesson.title}
             </h1>
             <p className="mt-4 text-gray-400">
-              Nessa aula vamos dar inicio ao projeto criando a estrutura base da 
-              aplicação utilizando ReactJS e graphCMS gerada pela plataforma do 
-              nosso front-end.
+              {data.lesson.description}
             </p>
           </div>
           <div className="flex flex-col gap-4">
@@ -40,16 +81,16 @@ export function Video (props : { lessonSlug: string }) {
 
         <div className="flex items-center gap-4 mt-6">
           <img
-            src="https://github.com/franwanderley.png"
+            src={data.lesson.teacher.avatarURL}
             alt="professor"
             className="h-16 w-16 rounded-full border-2 border-blue-500"
           />
           <div className="leading-relaxed">
             <strong className="font-bold text-2xl block">
-              Francisco Wanderley
+              {data.lesson.teacher.name}
             </strong>
             <span className="text-gray-200 text-sm block">
-              Dev FullStack Zallpy Digital
+              {data.lesson.teacher.bio}
             </span>
           </div>
         </div>
