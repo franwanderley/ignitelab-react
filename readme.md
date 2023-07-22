@@ -2,6 +2,7 @@
 Curso Especialização em React || RockSeat
 ### Tecnologias Usadas
 * GraphQL
-* Tailwind
 * GraphCMS
+* Tailwind
 * VIME JS
+* APOLLO
