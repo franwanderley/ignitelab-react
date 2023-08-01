@@ -6,3 +6,12 @@ Curso Especialização em React || RockSeat
 * Tailwind
 * VIME JS
 * APOLLO
+* Suspense API | React.Lazy
+
+### Executar na sua maquina
+npm -v 8.11
+git clone https://github.com/franwanderley/ignitelab-react.git
+cd ignitelab-react
+npm install
+npm run dev
+

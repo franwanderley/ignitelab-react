@@ -8,12 +8,6 @@ const Video = lazy(() => import('../components/Video'));
 export function Event () {
   const { slug } = useParams();
 
-  const FallbackLoading = () => (
-    <div className="flex-1 flex items-center justify-center">
-      <p>Carregando...</p>
-    </div>
-  );
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -26,3 +20,9 @@ export function Event () {
     </div>
   );
 }
+
+const FallbackLoading = () => (
+  <div className="flex-1 flex items-center justify-center">
+    <p>Carregando...</p>
+  </div>
+);
