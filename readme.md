@@ -15,6 +15,7 @@ Um sistema de videos feito no curso Especialização em React || RocketSeat
 * git clone https://github.com/franwanderley/ignitelab-react.git
 * cd ignitelab-react
 * npm install
+* criar .env e colocar as informações segundo o .env.example
 * npm run dev
 <b>Pronto agora é só acessar http://localhost:5173/</b>
 
